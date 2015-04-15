@@ -1,0 +1,17 @@
+@import url(node_modules/bootstrap/dist/css/bootstrap.css);
+.estimate {
+  display: inline-block;
+  height: 16px;
+  margin: 0 2px; }
+  .estimate .estimate-bar {
+    display: block;
+    width: 8px;
+    margin: 1px 0; }
+    .estimate .estimate-bar.light {
+      border-bottom: 2px solid #ccc; }
+    .estimate .estimate-bar.dark {
+      border-bottom: 2px solid #333; }
+  .estimate:hover .estimate-bar.light {
+    border-bottom: 2px solid #ccf; }
+  .estimate:hover .estimate-bar.dark {
+    border-bottom: 2px solid #33f; }
