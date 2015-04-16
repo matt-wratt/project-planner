@@ -5,7 +5,7 @@ var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["defau
 
 var Reflux = _interopRequire(require("reflux"));
 
-module.exports = Reflux.createActions(["newProject", "updateProject", "removeProject", "selectProject", "newStory", "updateStory", "moveStory", "removeStory", "restoreStories", "startStory", "finishStory", "acceptStory", "rejectStory", "newComment", "updateComment", "removeComment"]);
+module.exports = Reflux.createActions(["newProject", "updateProject", "removeProject", "selectProject", "newStory", "updateStory", "startMove", "moveStory", "finishMove", "removeStory", "restoreStories", "startStory", "finishStory", "acceptStory", "rejectStory", "newComment", "updateComment", "removeComment"]);
 
 },{"reflux":309}],2:[function(require,module,exports){
 "use strict";
@@ -1069,7 +1069,12 @@ var Estimate = _interopRequire(require("./estimate"));
 
 var dragSource = {
   beginDrag: function beginDrag(component) {
+    ProjectActions.startMove(component.props.item.id);
     return component.props;
+  },
+
+  endDrag: function endDrag(component) {
+    ProjectActions.finishMove(component.props.item.id);
   }
 };
 
@@ -1538,6 +1543,17 @@ module.exports = Reflux.createStore({
     this.update();
   },
 
+  onStartMove: function onStartMove(id) {
+    var _this = this;
+
+    var find = function (id) {
+      return _this.stories.filter(function (story) {
+        return story.id === id;
+      })[0];
+    };
+    this.movingFrom = find(id).order;
+  },
+
   onMoveStory: function onMoveStory(id, afterId) {
     var _this = this;
 
@@ -1550,7 +1566,6 @@ module.exports = Reflux.createStore({
     var after = find(afterId);
     var storyIndex = this.stories.indexOf(story);
     var afterIndex = this.stories.indexOf(after);
-    story.history.push({ type: "update", message: "Story moved", timestamp: timestamp() });
     this.stories.splice(storyIndex, 1);
     this.stories.splice(afterIndex, 0, story);
     this.stories = this.stories.filter(function (story) {
@@ -1560,6 +1575,25 @@ module.exports = Reflux.createStore({
       return story.order = i;
     });
     this.update();
+  },
+
+  onFinishMove: function onFinishMove(id) {
+    var _this = this;
+
+    var find = function (id) {
+      return _this.stories.filter(function (story) {
+        return story.id === id;
+      })[0];
+    };
+    var story = find(id);
+    var from = this.movingFrom;
+    var to = story.order;
+    var direction = to < from ? "up" : to > from ? "down" : null;
+    delete this.movingFrom;
+    if (direction) {
+      story.history.push({ type: "update", message: "Story moved " + direction, timestamp: timestamp() });
+      this.update();
+    }
   },
 
   onRemoveStory: function onRemoveStory(story) {
