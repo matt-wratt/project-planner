@@ -1,4 +1,7 @@
 @import url(node_modules/bootstrap/dist/css/bootstrap.css);
+body {
+  padding-top: 70px; }
+
 .estimate {
   display: inline-block;
   height: 16px;
