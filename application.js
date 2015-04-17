@@ -770,14 +770,56 @@ var ProjectSettingsModal = (function (_React$Component) {
         this.props.onRequestHide();
       }
     },
+    renderExportCsvButton: {
+      value: function renderExportCsvButton() {
+        var _props$project = this.props.project;
+        var id = _props$project.id;
+        var name = _props$project.name;
+        var sprintDuration = _props$project.sprintDuration;
+
+        var date = new Date().toISOString().replace(/T.*$/, "");
+        var filename = "" + id + "-" + date + ".csv";
+        var csv = new CSVBuilder();
+        csv.addRow("id", "type", "name", "duration", "history");
+        csv.addRow(id, "project", name, sprintDuration, null);
+        this.props.stories.forEach(function (story) {
+          csv.addRow(story.id, story.type, story.title, null, JSON.stringify(story.history));
+        });
+        return React.createElement(
+          "a",
+          { className: "btn btn-success btn-block", download: filename, href: csv.dataUrl() },
+          React.createElement(Glyphicon, { glyph: "export" }),
+          " Export ",
+          React.createElement(Glyphicon, { glyph: "export" })
+        );
+      }
+    },
+    renderDestroyButton: {
+      value: function renderDestroyButton() {
+        var destroy = ProjectActions.removeProject.bind(ProjectActions, this.props.project);
+        var destroyConfirmation = React.createElement(ConfirmationModal, { message: "Are you sure you want to completely remove this project?", onConfirmation: destroy });
+        return React.createElement(
+          ModalTrigger,
+          { modal: destroyConfirmation },
+          React.createElement(
+            Button,
+            { bsStyle: "danger", block: true },
+            React.createElement(Glyphicon, { glyph: "exclamation-sign" }),
+            " Destroy ",
+            React.createElement(Glyphicon, { glyph: "exclamation-sign" })
+          )
+        );
+      }
+    },
     render: {
       value: function render() {
         var submit = this.submit.bind(this);
-        var project = this.props.project;
-        var name = project.name;
+        var _props = this.props;
+        var onRequestHide = _props.onRequestHide;
+        var _props$project = _props.project;
+        var name = _props$project.name;
+        var sprintDuration = _props$project.sprintDuration;
 
-        var destroy = ProjectActions.removeProject.bind(ProjectActions, project);
-        var destroyConfirmation = React.createElement(ConfirmationModal, { message: "Are you sure you want to completely remove this project?", onConfirmation: destroy });
         return React.createElement(
           Modal,
           { title: "" + name + " Settings" },
@@ -789,13 +831,13 @@ var ProjectSettingsModal = (function (_React$Component) {
               { className: "modal-body" },
               React.createElement(
                 "div",
-                { className: "row" },
+                { className: "row", style: { "margin-top": "5px" } },
                 React.createElement(
                   Input,
                   {
                     ref: "sprintDuration",
                     type: "select",
-                    defaultValue: this.props.project.sprintDuration || "1 week",
+                    defaultValue: sprintDuration || "1 week",
                     label: "Sprint Duration",
                     labelClassName: "col-xs-6",
                     wrapperClassName: "col-xs-6"
@@ -831,23 +873,32 @@ var ProjectSettingsModal = (function (_React$Component) {
                   React.createElement(
                     "label",
                     null,
+                    "Export project stories to csv"
+                  )
+                ),
+                React.createElement(
+                  "div",
+                  { className: "col-xs-6" },
+                  this.renderExportCsvButton()
+                )
+              ),
+              React.createElement("hr", null),
+              React.createElement(
+                "div",
+                { className: "row" },
+                React.createElement(
+                  "div",
+                  { className: "col-xs-6" },
+                  React.createElement(
+                    "label",
+                    null,
                     "Remove this project"
                   )
                 ),
                 React.createElement(
                   "div",
                   { className: "col-xs-6" },
-                  React.createElement(
-                    ModalTrigger,
-                    { modal: destroyConfirmation },
-                    React.createElement(
-                      Button,
-                      { bsStyle: "danger", block: true },
-                      React.createElement(Glyphicon, { glyph: "warning-sign" }),
-                      " Destroy ",
-                      React.createElement(Glyphicon, { glyph: "warning-sign" })
-                    )
-                  )
+                  this.renderDestroyButton()
                 )
               )
             ),
@@ -861,7 +912,7 @@ var ProjectSettingsModal = (function (_React$Component) {
               ),
               React.createElement(
                 Button,
-                { onClick: this.props.onRequestHide },
+                { onClick: onRequestHide },
                 "Cancel"
               )
             )
@@ -875,6 +926,45 @@ var ProjectSettingsModal = (function (_React$Component) {
 })(React.Component);
 
 module.exports = ProjectSettingsModal;
+
+var CSVBuilder = (function () {
+  function CSVBuilder() {
+    _classCallCheck(this, CSVBuilder);
+
+    this.rows = [];
+  }
+
+  _createClass(CSVBuilder, {
+    addRow: {
+      value: function addRow() {
+        for (var _len = arguments.length, columns = Array(_len), _key = 0; _key < _len; _key++) {
+          columns[_key] = arguments[_key];
+        }
+
+        this.rows.push(columns);
+      }
+    },
+    dataUrl: {
+      value: function dataUrl() {
+        var data = this.rows.map(function (row) {
+          return row.map(csvValue).join(",");
+        }).join("\r\n");
+        data = new Blob([data]);
+        return URL.createObjectURL(data);
+      }
+    }
+  });
+
+  return CSVBuilder;
+})();
+
+function csvValue(value) {
+  if (typeof value === "number") {
+    return value.toString();
+  } else {
+    return "\"" + (value || "").replace(/"/, "\"\"") + "\"";
+  }
+}
 
 },{"../../actions/project":1,"./confirmation":12,"react":309,"react-bootstrap":73}],14:[function(require,module,exports){
 "use strict";
@@ -1117,6 +1207,10 @@ var ProjectDetail = (function (_React$Component) {
     },
     render: {
       value: function render() {
+        var _props = this.props;
+        var project = _props.project;
+        var stories = _props.stories;
+
         return React.createElement(
           "div",
           { className: "container" },
@@ -1128,12 +1222,12 @@ var ProjectDetail = (function (_React$Component) {
               { className: "pull-right" },
               React.createElement(
                 ModalTrigger,
-                { modal: React.createElement(ProjectSettingsModal, { project: this.props.project }) },
+                { modal: React.createElement(ProjectSettingsModal, { project: project, stories: stories }) },
                 React.createElement(Glyphicon, { glyph: "cog" })
               )
             ),
             "Welcome to ",
-            this.props.project.name
+            project.name
           ),
           React.createElement(
             Column,
@@ -1141,7 +1235,7 @@ var ProjectDetail = (function (_React$Component) {
             React.createElement(
               List,
               { name: "current", extra: this.renderOptions() },
-              this.props.stories.length ? this.renderStories() : this.renderNoStories()
+              stories.length ? this.renderStories() : this.renderNoStories()
             )
           )
         );
