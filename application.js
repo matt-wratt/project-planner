@@ -5,7 +5,7 @@ var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["defau
 
 var Reflux = _interopRequire(require("reflux"));
 
-module.exports = Reflux.createActions(["newProject", "updateProject", "removeProject", "selectProject", "newStory", "updateStory", "startMove", "moveStory", "finishMove", "removeStory", "restoreStories", "startStory", "finishStory", "acceptStory", "rejectStory", "newComment", "updateComment", "removeComment"]);
+module.exports = Reflux.createActions(["newProject", "renameProject", "updateProject", "removeProject", "selectProject", "newStory", "updateStory", "startMove", "moveStory", "finishMove", "removeStory", "restoreStories", "startStory", "finishStory", "acceptStory", "rejectStory", "newComment", "updateComment", "removeComment"]);
 
 },{"reflux":310}],2:[function(require,module,exports){
 "use strict";
@@ -767,6 +767,10 @@ var ProjectSettingsModal = (function (_React$Component) {
 
         project.sprintDuration = this.refs.sprintDuration.getValue();
         ProjectActions.updateProject(project);
+        var newName = this.refs.name.getValue();
+        if (newName !== project.name) {
+          ProjectActions.renameProject(project, newName);
+        }
         this.props.onRequestHide();
       }
     },
@@ -832,6 +836,18 @@ var ProjectSettingsModal = (function (_React$Component) {
               React.createElement(
                 "div",
                 { className: "row", style: { "margin-top": "5px" } },
+                React.createElement(Input, {
+                  ref: "name",
+                  type: "text",
+                  defaultValue: name,
+                  label: "Project Name",
+                  labelClassName: "col-xs-6",
+                  wrapperClassName: "col-xs-6"
+                })
+              ),
+              React.createElement(
+                "div",
+                { className: "row", style: { "margin-top": "5px" } },
                 React.createElement(
                   Input,
                   {
@@ -864,6 +880,7 @@ var ProjectSettingsModal = (function (_React$Component) {
                   )
                 )
               ),
+              React.createElement("hr", null),
               React.createElement(
                 "div",
                 { className: "row", style: { "margin-top": "5px" } },
@@ -1622,9 +1639,9 @@ module.exports = Reflux.createStore({
     return this.stories[this.stories.indexOf(story)];
   },
 
-  storyKey: function storyKey() {
-    if (!this.selected) throw "Must select a project before loading stories";
-    return "" + this.selected.id + "-stories";
+  storyKey: function storyKey(project) {
+    if (!project && !this.selected) throw "Must select a project before loading stories";
+    return "" + (project && project.id || this.selected.id) + "-stories";
   },
 
   save: function save() {
@@ -1646,6 +1663,14 @@ module.exports = Reflux.createStore({
     project.id = idFromName(project.name);
     this.projects.push(project);
     this.update();
+  },
+
+  onRenameProject: function onRenameProject(project, name) {
+    var stories = JSON.parse(window.localStorage.getItem(this.storyKey()) || "[]");
+    project.name = name;
+    project.id = idFromName(project.name);
+    window.localStorage.setItem(this.storyKey(project), stories);
+    this.onUpdateProject(project);
   },
 
   onRemoveProject: function onRemoveProject(project) {
