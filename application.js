@@ -1779,6 +1779,7 @@ function storyTypeStyle(type) {
 }
 
 function startOfSprint(duration, cycleDate, date) {
+  duration = Number(duration);
   var startDate = cycleDate;
   while (!(startDate <= date && startDate + duration > date)) {
     if (date > startDate) {
@@ -2156,9 +2157,13 @@ window.restoreStories = function () {
 },{"../actions/project":1,"reflux":311}],20:[function(require,module,exports){
 "use strict";
 
+var runTests = false;
+
 module.exports = {
   describe: function (name, suite) {
-    suite(it(name));
+    if (runTests) {
+      suite(it(name));
+    }
   }
 };
 
