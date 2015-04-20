@@ -18,7 +18,7 @@ var App = require("./components").App;
 
 React.render(React.createElement(App, null), document.body);
 
-},{"./components":10,"react":310}],3:[function(require,module,exports){
+},{"./components":9,"react":310}],3:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -155,7 +155,7 @@ var App = (function (_React$Component) {
 
 module.exports = App;
 
-},{"../actions/project":1,"../stores/projects":20,"./project-detail":16,"react":310,"react-bootstrap":74}],4:[function(require,module,exports){
+},{"../actions/project":1,"../stores/projects":19,"./project-detail":15,"react":310,"react-bootstrap":74}],4:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -230,7 +230,7 @@ var _reactBootstrap = require("react-bootstrap");
 var Glyphicon = _reactBootstrap.Glyphicon;
 var ModalTrigger = _reactBootstrap.ModalTrigger;
 
-var ConfirmationModal = _interopRequire(require("./confirmation-modal"));
+var ConfirmationModal = _interopRequire(require("./modals/confirmation"));
 
 var Timestamp = _interopRequire(require("./timestamp"));
 
@@ -282,7 +282,7 @@ var Comment = (function (_React$Component) {
 
 module.exports = Comment;
 
-},{"../actions/project":1,"./confirmation-modal":7,"./timestamp":18,"react":310,"react-bootstrap":74}],6:[function(require,module,exports){
+},{"../actions/project":1,"./modals/confirmation":12,"./timestamp":17,"react":310,"react-bootstrap":74}],6:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -371,78 +371,6 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var React = _interopRequire(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var Button = _reactBootstrap.Button;
-var Modal = _reactBootstrap.Modal;
-
-var ConfirmationModal = (function (_React$Component) {
-  function ConfirmationModal() {
-    _classCallCheck(this, ConfirmationModal);
-
-    if (_React$Component != null) {
-      _React$Component.apply(this, arguments);
-    }
-  }
-
-  _inherits(ConfirmationModal, _React$Component);
-
-  _createClass(ConfirmationModal, {
-    confirm: {
-      value: function confirm(event) {
-        this.props.onRequestHide();
-        this.props.onConfirmation();
-      }
-    },
-    render: {
-      value: function render() {
-        return React.createElement(
-          Modal,
-          _extends({}, this.props, { title: "Confirmation" }),
-          React.createElement(
-            "div",
-            { className: "modal-body" },
-            this.props.message
-          ),
-          React.createElement(
-            "div",
-            { className: "modal-footer" },
-            React.createElement(
-              Button,
-              { onClick: this.confirm.bind(this), bsStyle: "primary" },
-              "Confirm!"
-            ),
-            React.createElement(
-              Button,
-              { onClick: this.props.onRequestHide },
-              "Cancel"
-            )
-          )
-        );
-      }
-    }
-  });
-
-  return ConfirmationModal;
-})(React.Component);
-
-module.exports = ConfirmationModal;
-
-},{"react":310,"react-bootstrap":74}],8:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-
 var React = _interopRequire(require("react"));
 
 var ProjectActions = _interopRequire(require("../actions/project"));
@@ -515,7 +443,7 @@ var Estimate = (function (_React$Component) {
 
 module.exports = Estimate;
 
-},{"../actions/project":1,"react":310}],9:[function(require,module,exports){
+},{"../actions/project":1,"react":310}],8:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -573,7 +501,7 @@ var History = (function (_React$Component) {
 
 module.exports = History;
 
-},{"./timestamp":18,"react":310}],10:[function(require,module,exports){
+},{"./timestamp":17,"react":310}],9:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -598,7 +526,7 @@ exports.List = List;
 exports.ProjectDetail = ProjectDetail;
 exports.ProjectItem = ProjectItem;
 
-},{"./app":3,"./column":4,"./list":12,"./project-detail":16,"./project-item":17}],11:[function(require,module,exports){
+},{"./app":3,"./column":4,"./list":11,"./project-detail":15,"./project-item":16}],10:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -724,7 +652,7 @@ function select(props) {
   }, {});
 }
 
-},{"react":310,"react-bootstrap":74}],12:[function(require,module,exports){
+},{"react":310,"react-bootstrap":74}],11:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -777,7 +705,7 @@ var List = (function (_React$Component) {
 
 module.exports = List;
 
-},{"react":310}],13:[function(require,module,exports){
+},{"react":310}],12:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -849,7 +777,7 @@ var ConfirmationModal = (function (_React$Component) {
 
 module.exports = ConfirmationModal;
 
-},{"react":310,"react-bootstrap":74}],14:[function(require,module,exports){
+},{"react":310,"react-bootstrap":74}],13:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -892,6 +820,7 @@ var ProjectSettingsModal = (function (_React$Component) {
         var project = this.props.project;
 
         project.sprintDuration = this.refs.sprintDuration.getValue();
+        project.start = this.refs.start.getValue();
         ProjectActions.updateProject(project);
         var newName = this.refs.name.getValue();
         if (newName !== project.name) {
@@ -944,10 +873,13 @@ var ProjectSettingsModal = (function (_React$Component) {
     render: {
       value: function render() {
         var submit = this.submit.bind(this);
+        var oneDay = 1000 * 60 * 60 * 24;
+        var oneWeek = 7 * oneDay;
         var _props = this.props;
         var onRequestHide = _props.onRequestHide;
         var _props$project = _props.project;
         var name = _props$project.name;
+        var start = _props$project.start;
         var sprintDuration = _props$project.sprintDuration;
 
         return React.createElement(
@@ -974,6 +906,18 @@ var ProjectSettingsModal = (function (_React$Component) {
               React.createElement(
                 "div",
                 { className: "row", style: { "margin-top": "5px" } },
+                React.createElement(Input, {
+                  ref: "start",
+                  type: "date",
+                  defaultValue: start || new Date().toISOString().replace(/T.*$/, ""),
+                  label: "Start Date",
+                  labelClassName: "col-xs-6",
+                  wrapperClassName: "col-xs-6"
+                })
+              ),
+              React.createElement(
+                "div",
+                { className: "row", style: { "margin-top": "5px" } },
                 React.createElement(
                   Input,
                   {
@@ -986,23 +930,28 @@ var ProjectSettingsModal = (function (_React$Component) {
                   },
                   React.createElement(
                     "option",
-                    { value: "1 week" },
+                    { value: oneDay },
+                    "1 Day"
+                  ),
+                  React.createElement(
+                    "option",
+                    { value: 3 * oneDay },
+                    "3 Days"
+                  ),
+                  React.createElement(
+                    "option",
+                    { value: oneWeek },
                     "1 Week"
                   ),
                   React.createElement(
                     "option",
-                    { value: "2 week" },
-                    "2 Week"
+                    { value: 2 * oneWeek },
+                    "2 Weeks"
                   ),
                   React.createElement(
                     "option",
-                    { value: "3 week" },
-                    "3 Week"
-                  ),
-                  React.createElement(
-                    "option",
-                    { value: "1 month" },
-                    "1 Month"
+                    { value: 3 * oneWeek },
+                    "3 Weeks"
                   )
                 )
               ),
@@ -1109,7 +1058,7 @@ function csvValue(value) {
   }
 }
 
-},{"../../actions/project":1,"./confirmation":13,"react":310,"react-bootstrap":74}],15:[function(require,module,exports){
+},{"../../actions/project":1,"./confirmation":12,"react":310,"react-bootstrap":74}],14:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1247,7 +1196,7 @@ var StoryModal = (function (_React$Component) {
 
 module.exports = StoryModal;
 
-},{"../../helpers":19,"react":310,"react-bootstrap":74}],16:[function(require,module,exports){
+},{"../../helpers":18,"react":310,"react-bootstrap":74}],15:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1269,7 +1218,9 @@ var Col = _reactBootstrap.Col;
 var Glyphicon = _reactBootstrap.Glyphicon;
 var Jumbotron = _reactBootstrap.Jumbotron;
 var ModalTrigger = _reactBootstrap.ModalTrigger;
+var OverlayTrigger = _reactBootstrap.OverlayTrigger;
 var Row = _reactBootstrap.Row;
+var Tooltip = _reactBootstrap.Tooltip;
 
 var Column = _interopRequire(require("./column"));
 
@@ -1279,11 +1230,15 @@ var ProjectItem = _interopRequire(require("./project-item"));
 
 var InputInline = _interopRequire(require("./input-inline"));
 
+var Timestamp = _interopRequire(require("./timestamp"));
+
 var StoryModal = _interopRequire(require("./modals/story"));
 
 var ProjectActions = _interopRequire(require("../actions/project"));
 
 var ProjectSettingsModal = _interopRequire(require("./modals/project-settings"));
+
+var splitStories = require("../helpers").splitStories;
 
 var ProjectDetail = (function (_React$Component) {
   function ProjectDetail(props) {
@@ -1292,6 +1247,8 @@ var ProjectDetail = (function (_React$Component) {
     _get(Object.getPrototypeOf(ProjectDetail.prototype), "constructor", this).call(this, props);
     this.handleShortcut = this.handleShortcut.bind(this);
     this.setVelocity = this.setVelocity.bind(this);
+    this.showTooltip = this.showTooltip.bind(this);
+    this.hideTooltip = this.hideTooltip.bind(this);
   }
 
   _inherits(ProjectDetail, _React$Component);
@@ -1328,21 +1285,55 @@ var ProjectDetail = (function (_React$Component) {
         document.removeEventListener("keydown", this.handleShortcut);
       }
     },
+    showTooltip: {
+      value: function showTooltip(event) {
+        this.refs.tooltip.show();
+      }
+    },
+    hideTooltip: {
+      value: function hideTooltip(event) {
+        this.refs.tooltip.hide();
+      }
+    },
     renderStories: {
       value: function renderStories() {
-        return this.props.stories.sort(function (a, b) {
-          return byState(a, b) || byOrder(a, b);
-        }).map(function (item) {
-          return React.createElement(ProjectItem, { item: item, key: item.id });
+        var _this = this;
+
+        var _props = this.props;
+        var _props$project = _props.project;
+        var velocity = _props$project.velocity;
+        var start = _props$project.start;
+        var sprintDuration = _props$project.sprintDuration;
+        var stories = _props.stories;
+
+        var columns = splitStories(this.props.stories, velocity, sprintDuration, Date.parse(start));
+        return Object.keys(columns).map(function (column) {
+          return React.createElement(
+            List,
+            { name: column, extra: column === "backlog" ? _this.renderOptions() : null, key: column },
+            Object.keys(columns[column]).map(function (timestamp) {
+              return React.createElement(
+                List,
+                { name: React.createElement(Timestamp, { timestamp: Number(timestamp), dateOnly: true }), key: timestamp },
+                columns[column][timestamp].map(function (story) {
+                  return React.createElement(ProjectItem, { item: story, key: story.id });
+                })
+              );
+            })
+          );
         });
       }
     },
     renderNoStories: {
       value: function renderNoStories() {
         return React.createElement(
-          Alert,
-          null,
-          "There are currently no stories for this project"
+          List,
+          { name: "current", extra: this.renderOptions() },
+          React.createElement(
+            Alert,
+            null,
+            "There are currently no stories for this project"
+          )
         );
       }
     },
@@ -1352,9 +1343,23 @@ var ProjectDetail = (function (_React$Component) {
           "div",
           { className: "pull-right" },
           React.createElement(
+            OverlayTrigger,
+            { ref: "tooltip", placement: "left", overlay: React.createElement(
+                Tooltip,
+                null,
+                React.createElement(
+                  "strong",
+                  null,
+                  "Create Story"
+                ),
+                " (Option + N)"
+              ) },
+            React.createElement("span", { style: { display: "inline-block", height: "1em" } })
+          ),
+          React.createElement(
             ModalTrigger,
             { modal: React.createElement(StoryModal, { story: { type: "story" }, onSuccess: this.createStory.bind(this) }) },
-            React.createElement(Glyphicon, { glyph: "plus", ref: "newStory" })
+            React.createElement(Glyphicon, { glyph: "plus", ref: "newStory", onMouseEnter: this.showTooltip, onMouseLeave: this.hideTooltip })
           )
         );
       }
@@ -1394,11 +1399,7 @@ var ProjectDetail = (function (_React$Component) {
           React.createElement(
             Column,
             null,
-            React.createElement(
-              List,
-              { name: "current", extra: this.renderOptions() },
-              stories.length ? this.renderStories() : this.renderNoStories()
-            )
+            stories.length ? this.renderStories() : this.renderNoStories()
           )
         );
       }
@@ -1428,7 +1429,7 @@ function scoreState(_ref) {
   return ["accepted", "finished", "started", "rejected", "pending", undefined].indexOf(state);
 }
 
-},{"../actions/project":1,"./column":4,"./input-inline":11,"./list":12,"./modals/project-settings":14,"./modals/story":15,"./project-item":17,"react":310,"react-bootstrap":74}],17:[function(require,module,exports){
+},{"../actions/project":1,"../helpers":18,"./column":4,"./input-inline":10,"./list":11,"./modals/project-settings":13,"./modals/story":14,"./project-item":16,"./timestamp":17,"react":310,"react-bootstrap":74}],16:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1673,7 +1674,7 @@ function action(name, _ref) {
   };
 }
 
-},{"../actions/project":1,"../helpers":19,"./comments":6,"./estimate":8,"./history":9,"./modals/confirmation":13,"./modals/story":15,"react":310,"react-bootstrap":74,"react-dnd":92}],18:[function(require,module,exports){
+},{"../actions/project":1,"../helpers":18,"./comments":6,"./estimate":7,"./history":8,"./modals/confirmation":12,"./modals/story":14,"react":310,"react-bootstrap":74,"react-dnd":92}],17:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1717,12 +1718,16 @@ var Timestamp = (function (_React$Component) {
     },
     render: {
       value: function render() {
+        var _props = this.props;
+        var dateOnly = _props.dateOnly;
+        var timeOnly = _props.timeOnly;
+
         return React.createElement(
           "span",
           null,
-          this.date(),
-          " ",
-          this.time()
+          timeOnly ? null : this.date(),
+          timeOnly || dateOnly ? null : " ",
+          dateOnly ? null : this.time()
         );
       }
     }
@@ -1737,26 +1742,158 @@ function pad(num) {
   return num.toString().replace(/^(\d)$/, "0$1");
 }
 
-},{"react":310}],19:[function(require,module,exports){
+},{"react":310}],18:[function(require,module,exports){
 "use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var Test = _interopRequire(require("./test"));
+
+var storyState = objectise("accepted", "finished", "started", "rejected", "pending");
+var storyType = objectise("story", "bug", "task");
+
+function objectise() {
+  for (var _len = arguments.length, states = Array(_len), _key = 0; _key < _len; _key++) {
+    states[_key] = arguments[_key];
+  }
+
+  return states.reduce(function (obj, state) {
+    obj[state.toUpperCase()] = state;
+    return obj;
+  }, { values: states });
+}
+
 function storyTypeStyle(type) {
   switch (type) {
-    case "story":
+    case storyType.STORY:
       return "success";
-    case "bug":
+    case storyType.BUG:
       return "danger";
-    case "task":
+    case storyType.TASK:
       return "info";
   }
 }
 
-exports.storyTypeStyle = storyTypeStyle;
+function startOfSprint(duration, cycleDate, date) {
+  var startDate = cycleDate;
+  while (!(startDate <= date && startDate + duration > date)) {
+    if (date > startDate) {
+      startDate += duration;
+    } else {
+      startDate -= duration;
+    }
+  }
+  return startDate;
+}
 
-},{}],20:[function(require,module,exports){
+function finishedDate(story) {
+  var finishHistory = story.history.filter(function (history) {
+    return history.type === "state" && history.to === storyState.FINISHED;
+  });
+  return (finishHistory.length ? finishHistory : story.history).sort(byTimestamp).reverse()[0].timestamp;
+}
+
+function splitStories(stories, velocity, duration, cycleDate) {
+  var completed = {};
+  var current = {};
+  var backlog = {};
+  var points = 0;
+  var date = new Date().valueOf();
+  var currentSprint = startOfSprint(duration, cycleDate, date);
+  var addTo = function (col, sprint, story) {
+    return (col[sprint] = col[sprint] || []).push(story);
+  };
+
+  stories.sort(function (a, b) {
+    return byState(a, b) || byOrder(a, b);
+  }).forEach(function (story) {
+    switch (story.state) {
+      case storyState.ACCEPTED:
+      case storyState.FINISHED:
+        var sprint = startOfSprint(duration, cycleDate, finishedDate(story));
+        if (sprint === currentSprint) {
+          addTo(current, sprint, story);
+          points += story.estimate || 0;
+        } else {
+          addTo(completed, sprint, story);
+        }
+        break;
+      case storyState.STARTED:
+      case storyState.REJECTED:
+        addTo(current, currentSprint, story);
+        points += story.estimate || 0;
+        break;
+      case storyState.PENDING:
+      default:
+        points += story.estimate || 0;
+        if (points > velocity) {
+          var _sprint = currentSprint + duration * Math.floor(points / velocity);
+          addTo(backlog, _sprint, story);
+        } else {
+          addTo(current, currentSprint, story);
+        }
+        break;
+    }
+  });
+
+  return { completed: completed, current: current, backlog: backlog };
+}
+
+function byOrder(a, b) {
+  a = a.order;
+  b = b.order;
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+
+function byState(a, b) {
+  a = scoreState(a);
+  b = scoreState(b);
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+
+function byTimestamp(a, b) {
+  a = a.timestamp;
+  b = b.timestamp;
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+
+function scoreState(_ref) {
+  var state = _ref.state;
+
+  return ["accepted", "finished", "started", "rejected", "pending", undefined].indexOf(state);
+}
+
+exports.storyState = storyState;
+exports.storyType = storyType;
+exports.storyTypeStyle = storyTypeStyle;
+exports.splitStories = splitStories;
+
+Test.describe("startOfSprint", function (it) {
+  var oneDay = 1000 * 60 * 60 * 24;
+  var cycle = new Date().valueOf() - 2 * oneDay;
+  var duration = oneDay * 7;
+
+  it("finds the current sprint", function (expect) {
+    var date = new Date().valueOf();
+    expect(startOfSprint(duration, cycle, date)).toEq(cycle);
+  });
+
+  it("finds the last sprint", function (expect) {
+    var date = new Date().valueOf() - 5 * oneDay;
+    expect(startOfSprint(duration, cycle, date)).toEq(cycle - duration);
+  });
+
+  it("finds the next sprint", function (expect) {
+    var date = new Date().valueOf() + 9 * oneDay;
+    expect(startOfSprint(duration, cycle, date)).toEq(cycle + duration);
+  });
+});
+
+},{"./test":20}],19:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -2016,7 +2153,36 @@ window.restoreStories = function () {
   ProjectActions.restoreStories();
 };
 
-},{"../actions/project":1,"reflux":311}],21:[function(require,module,exports){
+},{"../actions/project":1,"reflux":311}],20:[function(require,module,exports){
+"use strict";
+
+module.exports = {
+  describe: function (name, suite) {
+    suite(it(name));
+  }
+};
+
+function it(name) {
+  return function (testName, suite) {
+    suite(expect("" + name + " " + testName));
+  };
+}
+
+function expect(name) {
+  return function (value) {
+    return {
+      toEq: function (eq) {
+        if (value == eq) {
+          console.log(name, "PASSED");
+        } else {
+          console.error("" + name + ", FAILED, expected " + eq + " but received " + value);
+        }
+      }
+    };
+  };
+}
+
+},{}],21:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
