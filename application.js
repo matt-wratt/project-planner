@@ -2056,6 +2056,12 @@ module.exports = Reflux.createStore({
 
   onNewProject: function onNewProject(project) {
     project.id = idFromName(project.name);
+    var defaultFor = function (name, value) {
+      return project[name] = project[name] || value;
+    };
+    defaultFor("sprintDuration", "86400000");
+    defaultFor("velocity", "5");
+    defaultFor("start", new Date().toISOString().replace(/T.*/, ""));
     this.projects.push(project);
     this.onSelectProject(project);
   },
