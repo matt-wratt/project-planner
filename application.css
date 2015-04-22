@@ -56,7 +56,7 @@ body {
   padding: 0 !important; }
 
 .story {
-  margin: 0 5px;
+  margin: 0;
   padding: 2px 5px;
   color: #8a6d3b;
   background-color: #fcf8e3;
@@ -79,3 +79,8 @@ body {
     border: 1px solid #d9d9d9; }
   .story.block {
     display: block; }
+
+.sprint-list {
+  overflow: scroll;
+  margin: 0 5px;
+  background-color: #eee; }

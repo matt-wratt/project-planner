@@ -20,7 +20,7 @@ $danger-bg:    #f2dede;
 }
 
 .story {
-  margin: 0 5px;
+  margin: 0;
   padding: 2px 5px;
   @include color($warning-text, $warning-bg);
 

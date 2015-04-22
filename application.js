@@ -1684,7 +1684,6 @@ var SprintList = (function (_React$Component) {
         var sprints = _props.sprints;
         var height = this.state.height;
 
-        var overflow = "scroll";
         return React.createElement(
           "div",
           { className: "col-xs-4 no-padding" },
@@ -1695,7 +1694,7 @@ var SprintList = (function (_React$Component) {
           ),
           React.createElement(
             "div",
-            { ref: "column", style: { height: height, overflow: overflow } },
+            { className: "sprint-list", ref: "column", style: { height: height } },
             keys(sprints, function (timestamp, stories) {
               return React.createElement(Sprint, { timestamp: timestamp, stories: stories });
             })
