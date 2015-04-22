@@ -1710,7 +1710,7 @@ var SprintList = (function (_React$Component) {
 module.exports = SprintList;
 
 function keys(obj, fn) {
-  return Object.keys(obj).map(function (key) {
+  return Object.keys(obj).sort().map(function (key) {
     return fn(key, obj[key]);
   });
 }
