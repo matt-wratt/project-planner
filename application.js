@@ -18,7 +18,7 @@ var App = require("./components").App;
 
 React.render(React.createElement(App, null), document.body);
 
-},{"./components":10,"react":311}],3:[function(require,module,exports){
+},{"./components":9,"react":311}],3:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -99,7 +99,7 @@ var App = (function (_React$Component) {
         var active = current && current.id === project.id ? "active" : "";
         return React.createElement(
           MenuItem,
-          { eventKey: i, className: active },
+          { key: i, eventKey: i, className: active },
           project.name
         );
       }
@@ -166,7 +166,7 @@ var App = (function (_React$Component) {
 
 module.exports = App;
 
-},{"../actions/project":1,"../stores/projects":20,"./battery-status":4,"./project-detail":16,"react":311,"react-bootstrap":75}],4:[function(require,module,exports){
+},{"../actions/project":1,"../stores/projects":20,"./battery-status":4,"./project-detail":14,"react":311,"react-bootstrap":75}],4:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -185,12 +185,12 @@ var events = ["chargingchange", "chargingtimechange", "dischargingtimechange", "
 
 var levels = Array.apply(Array, Array(5)).map(function (_, i) {
   return 1 / 4 * i;
-});
+}).reverse();
 
 var levelIndex = function (level) {
   return levels.reduce(function (x, y, i) {
-    return y <= level ? i : x;
-  });
+    return y >= level ? i : x;
+  }, 0);
 };
 
 var BatteryStatus = (function (_React$Component) {
@@ -234,7 +234,7 @@ var BatteryStatus = (function (_React$Component) {
 
         var charge = levelIndex(target.level);
         var status = this.state.status.map(function (_, i) {
-          return i > charge ? "active" : "inactive";
+          return i >= charge ? "active" : "inactive";
         });
         this.setState({ status: status });
       }
@@ -245,8 +245,8 @@ var BatteryStatus = (function (_React$Component) {
         return React.createElement(
           "div",
           { className: "battery" },
-          bars.map(function (status) {
-            return React.createElement("div", { className: "battery-bar " + status });
+          bars.map(function (status, i) {
+            return React.createElement("div", { key: i, className: "battery-bar " + status });
           })
         );
       }
@@ -259,61 +259,6 @@ var BatteryStatus = (function (_React$Component) {
 module.exports = BatteryStatus;
 
 },{"react":311}],5:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-
-var React = _interopRequire(require("react"));
-
-var gridSize = 12;
-
-var Column = (function (_React$Component) {
-  function Column() {
-    _classCallCheck(this, Column);
-
-    if (_React$Component != null) {
-      _React$Component.apply(this, arguments);
-    }
-  }
-
-  _inherits(Column, _React$Component);
-
-  _createClass(Column, {
-    renderChild: {
-      value: function renderChild(size, child) {
-        return React.createElement(
-          "div",
-          { className: "col-xs-" + size },
-          child
-        );
-      }
-    },
-    render: {
-      value: function render() {
-        var children = this.props.children;
-        children = children instanceof Array ? children : [children];
-        var perChild = Math.floor(gridSize / children.length);
-        return React.createElement(
-          "div",
-          { className: "row" },
-          children.map(this.renderChild.bind(this, perChild))
-        );
-      }
-    }
-  });
-
-  return Column;
-})(React.Component);
-
-module.exports = Column;
-
-},{"react":311}],6:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -385,7 +330,7 @@ var Comment = (function (_React$Component) {
 
 module.exports = Comment;
 
-},{"../actions/project":1,"./modals/confirmation":13,"./timestamp":18,"react":311,"react-bootstrap":75}],7:[function(require,module,exports){
+},{"../actions/project":1,"./modals/confirmation":11,"./timestamp":18,"react":311,"react-bootstrap":75}],6:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -463,7 +408,7 @@ var Comments = (function (_React$Component) {
 
 module.exports = Comments;
 
-},{"../actions/project":1,"./comment":6,"react":311,"react-bootstrap":75}],8:[function(require,module,exports){
+},{"../actions/project":1,"./comment":5,"react":311,"react-bootstrap":75}],7:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -546,7 +491,7 @@ var Estimate = (function (_React$Component) {
 
 module.exports = Estimate;
 
-},{"../actions/project":1,"react":311}],9:[function(require,module,exports){
+},{"../actions/project":1,"react":311}],8:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -604,7 +549,7 @@ var History = (function (_React$Component) {
 
 module.exports = History;
 
-},{"./timestamp":18,"react":311}],10:[function(require,module,exports){
+},{"./timestamp":18,"react":311}],9:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -615,21 +560,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var App = _interopRequire(require("./app"));
 
-var Column = _interopRequire(require("./column"));
-
-var List = _interopRequire(require("./list"));
-
 var ProjectDetail = _interopRequire(require("./project-detail"));
 
 var ProjectItem = _interopRequire(require("./project-item"));
 
 exports.App = App;
-exports.Column = Column;
-exports.List = List;
 exports.ProjectDetail = ProjectDetail;
 exports.ProjectItem = ProjectItem;
 
-},{"./app":3,"./column":5,"./list":12,"./project-detail":16,"./project-item":17}],11:[function(require,module,exports){
+},{"./app":3,"./project-detail":14,"./project-item":15}],10:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -755,60 +694,7 @@ function select(props) {
   }, {});
 }
 
-},{"react":311,"react-bootstrap":75}],12:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-
-var React = _interopRequire(require("react"));
-
-var List = (function (_React$Component) {
-  function List() {
-    _classCallCheck(this, List);
-
-    if (_React$Component != null) {
-      _React$Component.apply(this, arguments);
-    }
-  }
-
-  _inherits(List, _React$Component);
-
-  _createClass(List, {
-    render: {
-      value: function render() {
-        var children = this.props.children;
-        children = children instanceof Array ? children : [children];
-        return React.createElement(
-          "div",
-          { className: "panel panel-default" },
-          React.createElement(
-            "div",
-            { className: "panel-heading" },
-            this.props.extra ? this.props.extra : null,
-            this.props.name
-          ),
-          React.createElement(
-            "div",
-            { className: "panel-body" },
-            children
-          )
-        );
-      }
-    }
-  });
-
-  return List;
-})(React.Component);
-
-module.exports = List;
-
-},{"react":311}],13:[function(require,module,exports){
+},{"react":311,"react-bootstrap":75}],11:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -880,7 +766,7 @@ var ConfirmationModal = (function (_React$Component) {
 
 module.exports = ConfirmationModal;
 
-},{"react":311,"react-bootstrap":75}],14:[function(require,module,exports){
+},{"react":311,"react-bootstrap":75}],12:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1161,7 +1047,7 @@ function csvValue(value) {
   }
 }
 
-},{"../../actions/project":1,"./confirmation":13,"react":311,"react-bootstrap":75}],15:[function(require,module,exports){
+},{"../../actions/project":1,"./confirmation":11,"react":311,"react-bootstrap":75}],13:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1299,7 +1185,7 @@ var StoryModal = (function (_React$Component) {
 
 module.exports = StoryModal;
 
-},{"../../helpers":19,"react":311,"react-bootstrap":75}],16:[function(require,module,exports){
+},{"../../helpers":19,"react":311,"react-bootstrap":75}],14:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1325,15 +1211,9 @@ var OverlayTrigger = _reactBootstrap.OverlayTrigger;
 var Row = _reactBootstrap.Row;
 var Tooltip = _reactBootstrap.Tooltip;
 
-var Column = _interopRequire(require("./column"));
-
-var List = _interopRequire(require("./list"));
-
-var ProjectItem = _interopRequire(require("./project-item"));
-
 var InputInline = _interopRequire(require("./input-inline"));
 
-var Timestamp = _interopRequire(require("./timestamp"));
+var SprintList = _interopRequire(require("./sprint-list"));
 
 var StoryModal = _interopRequire(require("./modals/story"));
 
@@ -1398,10 +1278,17 @@ var ProjectDetail = (function (_React$Component) {
         this.refs.tooltip.hide();
       }
     },
-    renderStories: {
-      value: function renderStories() {
-        var _this = this;
-
+    renderNoStories: {
+      value: function renderNoStories() {
+        return React.createElement(
+          Alert,
+          null,
+          "There are currently no stories for this project"
+        );
+      }
+    },
+    renderColumns: {
+      value: function renderColumns() {
         var _props = this.props;
         var _props$project = _props.project;
         var velocity = _props$project.velocity;
@@ -1409,101 +1296,78 @@ var ProjectDetail = (function (_React$Component) {
         var sprintDuration = _props$project.sprintDuration;
         var stories = _props.stories;
 
-        var columns = splitStories(this.props.stories, velocity, sprintDuration, Date.parse(start));
-        return Object.keys(columns).map(function (column) {
-          return React.createElement(
-            List,
-            { name: column, extra: column === "backlog" ? _this.renderOptions() : null, key: column },
-            Object.keys(columns[column]).map(function (timestamp) {
-              return React.createElement(
-                List,
-                { name: React.createElement(Timestamp, { timestamp: Number(timestamp), dateOnly: true }), key: timestamp },
-                columns[column][timestamp].map(function (story) {
-                  return React.createElement(ProjectItem, { item: story, key: story.id });
-                })
-              );
-            })
-          );
-        });
+        var columns = splitStories(stories, velocity, sprintDuration, Date.parse(start));
+
+        if (stories.length > 0) {
+          return keys(columns, function (name, sprints) {
+            return React.createElement(SprintList, { name: name, sprints: sprints });
+          });
+        } else {
+          return this.renderNoStories();
+        }
       }
     },
-    renderNoStories: {
-      value: function renderNoStories() {
+    renderHeader: {
+      value: function renderHeader() {
+        var _props = this.props;
+        var _props$project = _props.project;
+        var name = _props$project.name;
+        var velocity = _props$project.velocity;
+        var project = _props.project;
+        var stories = _props.stories;
+
         return React.createElement(
-          List,
-          { name: "current", extra: this.renderOptions() },
+          "h1",
+          null,
           React.createElement(
-            Alert,
-            null,
-            "There are currently no stories for this project"
-          )
-        );
-      }
-    },
-    renderOptions: {
-      value: function renderOptions() {
-        return React.createElement(
-          "div",
-          { className: "pull-right" },
-          React.createElement(
-            OverlayTrigger,
-            { ref: "tooltip", placement: "left", overlay: React.createElement(
-                Tooltip,
-                null,
-                React.createElement(
-                  "strong",
+            "small",
+            { className: "pull-right" },
+            React.createElement(InputInline, {
+              type: "number",
+              defaultValue: velocity,
+              onChange: this.setVelocity,
+              addonBefore: React.createElement(Glyphicon, { glyph: "flash" }),
+              style: { width: "70px" }
+            }),
+            " ",
+            React.createElement(
+              ModalTrigger,
+              { modal: React.createElement(ProjectSettingsModal, { project: project, stories: stories }) },
+              React.createElement(Glyphicon, { glyph: "cog" })
+            ),
+            " ",
+            React.createElement(
+              OverlayTrigger,
+              { ref: "tooltip", placement: "left", overlay: React.createElement(
+                  Tooltip,
                   null,
-                  "Create Story"
-                ),
-                " (Option + N)"
-              ) },
-            React.createElement("span", { style: { display: "inline-block", height: "1em" } })
+                  React.createElement(
+                    "strong",
+                    null,
+                    "Create Story"
+                  ),
+                  " (Option + N)"
+                ) },
+              React.createElement("span", { style: { display: "inline-block", height: "1em" } })
+            ),
+            React.createElement(
+              ModalTrigger,
+              { modal: React.createElement(StoryModal, { story: { type: "story" }, onSuccess: this.createStory.bind(this) }) },
+              React.createElement(Glyphicon, { glyph: "plus", ref: "newStory", onMouseEnter: this.showTooltip, onMouseLeave: this.hideTooltip })
+            )
           ),
-          React.createElement(
-            ModalTrigger,
-            { modal: React.createElement(StoryModal, { story: { type: "story" }, onSuccess: this.createStory.bind(this) }) },
-            React.createElement(Glyphicon, { glyph: "plus", ref: "newStory", onMouseEnter: this.showTooltip, onMouseLeave: this.hideTooltip })
-          )
+          "Welcome to ",
+          name
         );
       }
     },
     render: {
       value: function render() {
-        var _props = this.props;
-        var project = _props.project;
-        var stories = _props.stories;
-        var velocity = _props.project.velocity;
-
         return React.createElement(
           "div",
-          { className: "container" },
-          React.createElement(
-            "h1",
-            null,
-            React.createElement(
-              "small",
-              { className: "pull-right" },
-              React.createElement(InputInline, {
-                type: "number",
-                defaultValue: velocity,
-                onChange: this.setVelocity,
-                addonBefore: React.createElement(Glyphicon, { glyph: "flash" }),
-                style: { "margin-right": "20px", width: "70px" }
-              }),
-              React.createElement(
-                ModalTrigger,
-                { modal: React.createElement(ProjectSettingsModal, { project: project, stories: stories }) },
-                React.createElement(Glyphicon, { glyph: "cog" })
-              )
-            ),
-            "Welcome to ",
-            project.name
-          ),
-          React.createElement(
-            Column,
-            null,
-            stories.length ? this.renderStories() : this.renderNoStories()
-          )
+          { className: "container-fluid" },
+          this.renderHeader(),
+          this.renderColumns()
         );
       }
     }
@@ -1514,25 +1378,13 @@ var ProjectDetail = (function (_React$Component) {
 
 module.exports = ProjectDetail;
 
-function byOrder(a, b) {
-  a = a.order;
-  b = b.order;
-  return a > b ? 1 : a < b ? -1 : 0;
+function keys(obj, fn) {
+  return Object.keys(obj).map(function (key) {
+    return fn(key, obj[key]);
+  });
 }
 
-function byState(a, b) {
-  a = scoreState(a);
-  b = scoreState(b);
-  return a > b ? 1 : a < b ? -1 : 0;
-}
-
-function scoreState(_ref) {
-  var state = _ref.state;
-
-  return ["accepted", "finished", "started", "rejected", "pending", undefined].indexOf(state);
-}
-
-},{"../actions/project":1,"../helpers":19,"./column":5,"./input-inline":11,"./list":12,"./modals/project-settings":14,"./modals/story":15,"./project-item":17,"./timestamp":18,"react":311,"react-bootstrap":75}],17:[function(require,module,exports){
+},{"../actions/project":1,"../helpers":19,"./input-inline":10,"./modals/project-settings":12,"./modals/story":13,"./sprint-list":16,"react":311,"react-bootstrap":75}],15:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1545,7 +1397,6 @@ var DragDropMixin = require("react-dnd").DragDropMixin;
 
 var _reactBootstrap = require("react-bootstrap");
 
-var Alert = _reactBootstrap.Alert;
 var Button = _reactBootstrap.Button;
 var Glyphicon = _reactBootstrap.Glyphicon;
 var ModalTrigger = _reactBootstrap.ModalTrigger;
@@ -1716,6 +1567,7 @@ module.exports = React.createClass({
     var title = item.title;
     var type = item.type;
     var comments = item.comments;
+    var state = item.state;
 
     var remove = action("remove", this.props);
     var update = action("update", this.props);
@@ -1727,8 +1579,8 @@ module.exports = React.createClass({
     var opacity = isDragging ? 0 : 1;
     type = type || "story";
     return React.createElement(
-      Alert,
-      _extends({ id: id, bsStyle: this.alertStyle(item), style: { opacity: opacity } }, this.dragSourceFor("story"), this.dropTargetFor("story")),
+      "div",
+      _extends({ id: id, className: "story " + state, style: { opacity: opacity } }, this.dragSourceFor("story"), this.dropTargetFor("story")),
       React.createElement(
         "div",
         { className: "pull-right" },
@@ -1777,7 +1629,152 @@ function action(name, _ref) {
   };
 }
 
-},{"../actions/project":1,"../helpers":19,"./comments":7,"./estimate":8,"./history":9,"./modals/confirmation":13,"./modals/story":15,"react":311,"react-bootstrap":75,"react-dnd":93}],18:[function(require,module,exports){
+},{"../actions/project":1,"../helpers":19,"./comments":6,"./estimate":7,"./history":8,"./modals/confirmation":11,"./modals/story":13,"react":311,"react-bootstrap":75,"react-dnd":93}],16:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var React = _interopRequire(require("react"));
+
+var Sprint = _interopRequire(require("./sprint"));
+
+var SprintList = (function (_React$Component) {
+  function SprintList(props) {
+    _classCallCheck(this, SprintList);
+
+    _get(Object.getPrototypeOf(SprintList.prototype), "constructor", this).call(this, props);
+    this.updateSize = this.updateSize.bind(this);
+    this.state = { height: 0 };
+  }
+
+  _inherits(SprintList, _React$Component);
+
+  _createClass(SprintList, {
+    updateSize: {
+      value: function updateSize() {
+        var node = this.refs.column.getDOMNode();
+        var height = window.innerHeight - calcOffsetTop(node);
+        this.setState({ height: height });
+      }
+    },
+    componentDidMount: {
+      value: function componentDidMount() {
+        this.updateSize();
+        window.addEventListener("resize", this.updateSize);
+      }
+    },
+    componentWillUnmount: {
+      value: function componentWillUnmount() {
+        window.removeEventListener("resize", this.updateSize);
+      }
+    },
+    render: {
+      value: function render() {
+        var _props = this.props;
+        var name = _props.name;
+        var sprints = _props.sprints;
+        var height = this.state.height;
+
+        var overflow = "scroll";
+        return React.createElement(
+          "div",
+          { className: "col-xs-4 no-padding" },
+          React.createElement(
+            "h4",
+            null,
+            name
+          ),
+          React.createElement(
+            "div",
+            { ref: "column", style: { height: height, overflow: overflow } },
+            keys(sprints, function (timestamp, stories) {
+              return React.createElement(Sprint, { timestamp: timestamp, stories: stories });
+            })
+          )
+        );
+      }
+    }
+  });
+
+  return SprintList;
+})(React.Component);
+
+module.exports = SprintList;
+
+function keys(obj, fn) {
+  return Object.keys(obj).map(function (key) {
+    return fn(key, obj[key]);
+  });
+}
+
+function calcOffsetTop(node) {
+  var offsetParent = node.offsetParent;
+  var offsetTop = node.offsetTop;
+
+  return offsetTop + (offsetParent ? calcOffsetTop(offsetParent) : 0);
+}
+
+},{"./sprint":17,"react":311}],17:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var React = _interopRequire(require("react"));
+
+var ProjectItem = _interopRequire(require("./project-item"));
+
+var Timestamp = _interopRequire(require("./timestamp"));
+
+var Sprint = (function (_React$Component) {
+  function Sprint() {
+    _classCallCheck(this, Sprint);
+
+    if (_React$Component != null) {
+      _React$Component.apply(this, arguments);
+    }
+  }
+
+  _inherits(Sprint, _React$Component);
+
+  _createClass(Sprint, {
+    render: {
+      value: function render() {
+        var _props = this.props;
+        var timestamp = _props.timestamp;
+        var stories = _props.stories;
+
+        return React.createElement(
+          "div",
+          null,
+          React.createElement(Timestamp, { className: "story title block", timestamp: timestamp, dateOnly: true }),
+          stories.map(function (story) {
+            return React.createElement(ProjectItem, { item: story, key: story.id });
+          })
+        );
+      }
+    }
+  });
+
+  return Sprint;
+})(React.Component);
+
+module.exports = Sprint;
+
+},{"./project-item":15,"./timestamp":18,"react":311}],18:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -1804,7 +1801,7 @@ var Timestamp = (function (_React$Component) {
   _createClass(Timestamp, {
     timestamp: {
       value: function timestamp() {
-        return new Date(this.props.timestamp);
+        return new Date(Number(this.props.timestamp));
       }
     },
     date: {
@@ -1827,7 +1824,7 @@ var Timestamp = (function (_React$Component) {
 
         return React.createElement(
           "span",
-          null,
+          this.props,
           timeOnly ? null : this.date(),
           timeOnly || dateOnly ? null : " ",
           dateOnly ? null : this.time()

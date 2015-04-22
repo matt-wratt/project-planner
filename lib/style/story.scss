@@ -1,0 +1,46 @@
+$default-text: lighten(#000, 20%);
+$default-bg:   lighten(#000, 90%);
+
+$success-text: #3c763d;
+$success-bg:   #dff0d8;
+
+$info-text:    #31708f;
+$info-bg:      #d9edf7;
+
+$warning-text: #8a6d3b;
+$warning-bg:   #fcf8e3;
+
+$danger-text:  #a94442;
+$danger-bg:    #f2dede;
+
+@mixin color($color, $bg) {
+  color: $color;
+  background-color: $bg;
+  border: 1px solid darken($bg, 5%);
+}
+
+.story {
+  margin: 0 5px;
+  padding: 2px 5px;
+  @include color($warning-text, $warning-bg);
+
+  &.accepted {
+    @include color($success-text, $success-bg);
+  }
+
+  &.rejected {
+    @include color($danger-text, $danger-bg);
+  }
+
+  &.started {
+    @include color($info-text, $info-bg);
+  }
+
+  &.title {
+    @include color($default-text, $default-bg);
+  }
+
+  &.block {
+    display: block;
+  }
+}

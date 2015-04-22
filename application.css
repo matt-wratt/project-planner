@@ -51,3 +51,31 @@ body {
     border-bottom: 2px solid #ccf; }
   .estimate:hover .estimate-bar.dark {
     border-bottom: 2px solid #33f; }
+
+.no-padding {
+  padding: 0 !important; }
+
+.story {
+  margin: 0 5px;
+  padding: 2px 5px;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faf2cc; }
+  .story.accepted {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d0e9c6; }
+  .story.rejected {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebcccc; }
+  .story.started {
+    color: #31708f;
+    background-color: #d9edf7;
+    border: 1px solid #c4e3f3; }
+  .story.title {
+    color: #333333;
+    background-color: #e6e6e6;
+    border: 1px solid #d9d9d9; }
+  .story.block {
+    display: block; }
