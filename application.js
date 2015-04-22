@@ -1615,7 +1615,8 @@ module.exports = React.createClass({
       ),
       " ",
       title,
-      this.renderExtra(item)
+      this.renderExtra(item),
+      React.createElement("div", { className: "clearfix" })
     );
   }
 

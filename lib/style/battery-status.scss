@@ -10,7 +10,7 @@ $inactive-hover: red;
   display: inline-block;
   border: 2px solid $border;
   width: 10px;
-  height: 14px;
+  vertical-align: middle;
 
   &::before {
     position: absolute;
