@@ -1,37 +1,4 @@
 @import "node_modules/bootstrap/dist/css/bootstrap.css";
-
-body {
-  padding-top: 70px;
-}
-
-.estimate {
-  display: inline-block;
-  height: 16px;
-  margin: 0 2px;
-
-  .estimate-bar {
-    display: block;
-    width: 8px;
-    margin: 1px 0;
-
-    &.light {
-      border-bottom: 2px solid #ccc;
-    }
-
-    &.dark {
-      border-bottom: 2px solid #333;
-    }
-  }
-
-  &:hover {
-    .estimate-bar {
-      &.light {
-        border-bottom: 2px solid #ccf;
-      }
-
-      &.dark {
-        border-bottom: 2px solid #33f;
-      }
-    }
-  }
-}
+@import "./style/fixed-nav.scss";
+@import "./style/battery-status.scss";
+@import "./style/estimate.scss";

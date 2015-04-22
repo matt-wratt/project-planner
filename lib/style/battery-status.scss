@@ -1,0 +1,58 @@
+$border: #9d9d9d;
+$active: #9d9d9d;
+$inactive: transparent;
+$border-hover: white;
+$active-hover: lightgreen;
+$inactive-hover: red;
+
+.battery {
+  position: relative;
+  display: inline-block;
+  border: 2px solid $border;
+  width: 10px;
+  height: 14px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    width: 4px;
+    border: 1px solid $border;
+    top: -4px;
+    left: 1px;
+  }
+
+  .battery-bar {
+    border: 1px solid $border;
+    width: 4px;
+    margin: 1px;
+
+    &.active {
+      border-color: $active;
+    }
+
+    &.inactive {
+      border-color: $inactive;
+    }
+  }
+
+  &:hover {
+    border-color: $border-hover;
+
+    &::before {
+      border-color: $border-hover;
+    }
+
+    .battery-bar {
+      border-color: $border-hover;
+
+      &.active {
+        border-color: $active-hover;
+      }
+
+      &.inactive {
+        border-color: $inactive-hover;
+      }
+    }
+  }
+}
